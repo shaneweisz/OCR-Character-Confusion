@@ -1,11 +1,9 @@
 from random import randint
 
-def rand_chars(n,m):
+def rand_chars(n):
     rv = ""
     for i in range(1, n + 1):
-        rv += chr(randint(33,126)) + " "*10
-        if i%m==0:
-            rv+="\n"*5
+        rv += chr(randint(33,126))+"\n"
     return rv
 
 def write_to_file(text, file_name="random_chars.txt"):
@@ -16,7 +14,7 @@ def write_to_file(text, file_name="random_chars.txt"):
 
 
 def main():
-    write_to_file(rand_chars(1000,10))
+    write_to_file(rand_chars(1000))
 
 
 if __name__ == "__main__":

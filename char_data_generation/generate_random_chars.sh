@@ -6,10 +6,12 @@ text2image \
    --text random_chars.txt\
    --fonts_dir /Library/Fonts\
    --font 'Verdana' \
+   --xsize  250\
+   --ysize  250\
    --ptsize 12\
    --outputbase 'test_data'\
    --resolution 300\
-   --exposure 5\
+   --exposure 4\
    --rotate_image true\
    --degrade_image true\
    --bidirectional_rotation true \
