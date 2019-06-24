@@ -6,13 +6,13 @@ text2image \
    --text random_chars.txt\
    --fonts_dir /Library/Fonts\
    --font 'Verdana' \
+   --ptsize 12\
    --outputbase 'test_data'\
    --resolution 300\
    --exposure 5\
    --rotate_image true\
    --degrade_image true\
    --bidirectional_rotation true \
-   --output_individual_glyph_images false\
 /
 
 
