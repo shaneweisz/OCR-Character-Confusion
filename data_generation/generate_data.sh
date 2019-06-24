@@ -3,7 +3,7 @@
 
 PANGOCAIRO_BACKEND=fc \
 text2image \
-   --text eng.training_text\
+   --text ./tesseract_files/eng.training_text\
    --fonts_dir /Library/Fonts\
    --font 'Verdana' \
    --outputbase 'test_data'\
