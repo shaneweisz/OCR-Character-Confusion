@@ -1,26 +1,49 @@
-import difflib
 import os
-import pytesseract
+from needleman_wunsch import nw
 
 
 def get_string(file_name):
+    '''
+    Parameters:
+        file_name --> a string with a given file name
+
+    Returns a string with all the content from a given file name
+    '''
     f = open(file_name, 'r')
     string = f.read()
-    string = string.split()  # remove all whitespace
-    # string = "".join(list(string)) # add a space between each character
     f.close()
     return string
 
 
 def get_relative_path(relative_path):
+    '''
+    Parameters:
+        relative_path --> a string with the path to a file relative to the
+                          current directory
+                          Example: "../char_data_generation/random_chars.txt"
+
+    Returns:
+        A string with the absolute file path to a given file
+    '''
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, relative_path)
     return filename
 
 
-def get_diff(str1, str2):
-    d = difflib.Differ()
-    return list(d.compare(str1, str2))
+def align(truth, read):
+    '''
+    Parameters:
+        truth --> a string with the true characters from the original file
+        read --> a string with the corresponding ocr-ed characters
+
+    Returns:
+        A two-tuple with a string of the true characters and a string of
+        the read characters that are aligned for comparison purposes.
+    '''
+    to_remove = ['\n', '\v', '\t', '\f']
+    for rem in to_remove:
+        truth, read = truth.replace(rem, ''), read.replace(rem, '')
+    return nw(truth, read)
 
 
 def main():
@@ -28,14 +51,8 @@ def main():
         "../char_data_generation/random_chars.txt"))
     read = get_string(get_relative_path(
         "../char_data_generation/recognized_chars.txt"))
-    print(len(truth), truth[0:100])
-    print(len(read), read[0:100])
-    diff = get_diff(truth, read)
-    for i in range(200):
-        print(i, read[i], truth[i])
-    #print('hi', diff)
-    # for d in diff:
-    #    print(d)
+    for line in align(truth, read):
+        print(line[:60])
 
 
 if __name__ == '__main__':

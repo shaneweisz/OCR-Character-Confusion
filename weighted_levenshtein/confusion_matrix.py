@@ -5,8 +5,8 @@ import pandas as pd
 def matrix_from_data(truth_list, read_list, chars):
     '''
     Parameters:
-    truth_list --> list of the true characters
-    read_list  --> list of the corresponding recognized characters
+    truth_list --> a string consisting of the true characters
+    read_list  --> a string of the corresponding recognized characters
     chars --> list of characters that are valid options for true characters
 
     Returns:
