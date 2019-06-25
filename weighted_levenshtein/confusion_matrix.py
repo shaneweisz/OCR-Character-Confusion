@@ -1,6 +1,6 @@
 import pandas as pd
 from file_comparison import get_string, get_relative_path, align
-
+import pickle
 
 def matrix_from_data(truth_list, read_list, chars):
     '''
@@ -10,7 +10,7 @@ def matrix_from_data(truth_list, read_list, chars):
     chars --> list of characters that are valid options for true characters
 
     Returns:
-    A 2D Matrix A where A_ij represents the probability that
+    A 2D Matrix A where A_ij represents the number of times that
     character i is recognized as character j.
 
     '''
@@ -26,22 +26,13 @@ def matrix_from_data(truth_list, read_list, chars):
 
     df = pd.DataFrame(count_dict)
     df.index = chars
-    totals = dict()
     for truth_char, read_char in zip(truth_list, read_list):
-        totals[truth_char] = totals.get(truth_char, 0) + 1
         if read_char not in chars:
             df.loc[truth_char, 'other'] += 1
         else:
             df.loc[truth_char, read_char] += 1
 
-    for char in chars:
-        df.loc[char] /= totals.get(char, 1)
     return df
-
-# truth_list = ['a', 'b', '0', '7', 'a', 'a', 'a']
-# read_list = ['a', 'B', 'O', '?', 'a', 'a', 'b']
-# chars = ['a', 'b', 'B', '0', 'O', '7']
-
 
 def main():
     truth = get_string(get_relative_path(
@@ -49,10 +40,22 @@ def main():
     read = get_string(get_relative_path(
         "../char_data_generation/recognized_chars.txt"))
     aligned_truth, aligned_read = align(truth, read)
-    chars = [chr(i) for i in range(32, 127)]  # 32 means include space
+
+    chars = [chr(i) for i in range(32, 127)]  # 32 means include ' '
     df = matrix_from_data(aligned_truth, aligned_read, chars)
-    # print(df.loc['i', 'I'])
+
+    try: # try add to current pickle
+        original_df = pd.read_pickle(get_relative_path('confusion_matrix_test.pkl'))
+        df = df + original_df
+    except:
+        pass # means pickle has not yet been created
+
+    df.to_pickle("confusion_matrix_test.pkl")
     print(df.head())
+
+    # df.loc['!'] --> returns the row of !
+    # df['!'] --> returns the column of !
+
 
 
 if __name__ == "__main__":
