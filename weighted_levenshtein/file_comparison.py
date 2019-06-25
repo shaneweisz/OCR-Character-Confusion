@@ -6,8 +6,9 @@ import pytesseract
 def get_string(file_name):
     f = open(file_name, 'r')
     string = f.read()
-    string = string.split() # remove all whitespace
-    #string = "".join(list(string)) # add a space between each character
+    string = string.split()  # remove all whitespace
+    # string = "".join(list(string)) # add a space between each character
+    f.close()
     return string
 
 
@@ -31,9 +32,9 @@ def main():
     print(len(read), read[0:100])
     diff = get_diff(truth, read)
     for i in range(200):
-        print(i, read[i],truth[i])
+        print(i, read[i], truth[i])
     #print('hi', diff)
-    #for d in diff:
+    # for d in diff:
     #    print(d)
 
 
