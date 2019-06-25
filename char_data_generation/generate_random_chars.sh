@@ -6,16 +6,16 @@ text2image \
    --text random_chars.txt\
    --fonts_dir /Library/Fonts\
    --font 'Verdana' \
-   --xsize  250\
-   --ysize  250\
    --ptsize 12\
    --outputbase 'test_data'\
    --resolution 300\
-   --exposure 4\
+   --exposure 3\
    --rotate_image true\
    --degrade_image true\
    --bidirectional_rotation true \
 /
+#--xsize  600\
+#--ysize  600\
 
 
 # Exposure: 0 - 10 scale (10 = black)
