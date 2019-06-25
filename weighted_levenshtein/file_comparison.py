@@ -51,8 +51,9 @@ def main():
         "../char_data_generation/random_chars.txt"))
     read = get_string(get_relative_path(
         "../char_data_generation/recognized_chars.txt"))
-    for line in align(truth, read):
-        print(line[:60])
+    aligned_truth, aligned_read = align(truth, read)
+    print(aligned_truth[:60])
+    print(aligned_read[:60])
 
 
 if __name__ == '__main__':

@@ -1,5 +1,5 @@
-import numpy as np
 import pandas as pd
+from file_comparison import get_string, get_relative_path, align
 
 
 def matrix_from_data(truth_list, read_list, chars):
@@ -38,13 +38,21 @@ def matrix_from_data(truth_list, read_list, chars):
         df.loc[char] /= totals.get(char, 1)
     return df
 
+# truth_list = ['a', 'b', '0', '7', 'a', 'a', 'a']
+# read_list = ['a', 'B', 'O', '?', 'a', 'a', 'b']
+# chars = ['a', 'b', 'B', '0', 'O', '7']
+
 
 def main():
-    truth_list = ['a', 'b', '0', '7', 'a', 'a', 'a']
-    read_list = ['a', 'B', 'O', '?', 'a', 'a', 'b']
-    chars = ['a', 'b', 'B', '0', 'O', '7']
-    df = matrix_from_data(truth_list, read_list, chars)
-    print(df)
+    truth = get_string(get_relative_path(
+        "../char_data_generation/random_chars.txt"))
+    read = get_string(get_relative_path(
+        "../char_data_generation/recognized_chars.txt"))
+    aligned_truth, aligned_read = align(truth, read)
+    chars = [chr(i) for i in range(32, 127)]  # 32 means include space
+    df = matrix_from_data(aligned_truth, aligned_read, chars)
+    # print(df.loc['i', 'I'])
+    print(df.head())
 
 
 if __name__ == "__main__":
