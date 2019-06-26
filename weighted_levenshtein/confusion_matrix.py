@@ -1,6 +1,7 @@
 import pandas as pd
 from file_comparison import get_string, get_relative_path, align
 import pickle
+from collections import OrderedDict
 
 
 def matrix_from_data(truth_list, read_list, chars):
@@ -20,18 +21,20 @@ def matrix_from_data(truth_list, read_list, chars):
 
     # Construct a Data Frame with truth values representing the rows
     # and recognized values as columns
-    count_dict = dict()
+    count_dict = OrderedDict()
     for char in chars:
         count_dict[char] = [0]*n
     count_dict['other'] = [0]*n  # for characters read in that are not in chars
-
-    df = pd.DataFrame(count_dict)
+    df = pd.DataFrame(count_dict, columns=count_dict.keys())
     df.index = chars
     for truth_char, read_char in zip(truth_list, read_list):
         if read_char not in chars:
             df.loc[truth_char, 'other'] += 1
         else:
             df.loc[truth_char, read_char] += 1
+
+    df = df.drop(' ', axis=1)  # drop the ' ' column
+    df = df.drop(' ')  # drop the ' ' row
 
     return df
 
@@ -66,7 +69,7 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
     except FileNotFoundError:
         pass  # means pickle has not yet been created
 
-    # visualise(df) # produce a formatted excel file for visualization
+    visualise(df)  # produce a formatted excel file for visualization
 
     df.to_pickle("confusion_matrix_test.pkl")
     print(df.head())
