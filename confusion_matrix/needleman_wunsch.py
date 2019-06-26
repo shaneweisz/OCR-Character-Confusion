@@ -25,7 +25,7 @@ def zeros(rows, cols):
 def match_score(alpha, beta):
     if alpha == beta:
         return match_award
-    elif alpha == '-' or beta == '-':
+    elif alpha == ' ' or beta == ' ':
         return gap_penalty
     else:
         return mismatch_penalty

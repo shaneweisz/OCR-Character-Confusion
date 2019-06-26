@@ -1,4 +1,5 @@
 from random import randint
+import os
 
 def get_relative_path(relative_path):
     '''

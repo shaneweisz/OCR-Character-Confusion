@@ -54,8 +54,8 @@ def visualise(df):
 
 
 def main():  # Read in aligned data from file (generated using pypy3 for speed)
-    aligned_file = open('aligned_data.txt', 'r')
-    aligned_truth = aligned_file.readline().strip()  # strip to remove \n
+    aligned_file = open(get_relative_path('../confusion_matrix')+'/aligned_data.txt', 'r')
+    aligned_truth = aligned_file.readline()[:-1]  # trim to remove \n
     aligned_read = aligned_file.readline()
     aligned_file.close()
 
@@ -63,15 +63,16 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
     df = matrix_from_data(aligned_truth, aligned_read, chars)
 
     try:  # try add to current pickle
-        original_df = pd.read_pickle(get_relative_path(
-            'confusion_matrix_test.pkl'))
+        original_df = pd.read_pickle(get_relative_path('../confusion_matrix')+
+            '/confusion_matrix_test.pkl')
         df = df + original_df
     except FileNotFoundError:
         pass  # means pickle has not yet been created
 
     visualise(df)  # produce a formatted excel file for visualization
 
-    df.to_pickle("confusion_matrix_test.pkl")
+    df.to_pickle(get_relative_path('../confusion_matrix')+
+        '/confusion_matrix_test.pkl')
     print(df.head())
 
     # df.loc['!'] --> returns the row of !
