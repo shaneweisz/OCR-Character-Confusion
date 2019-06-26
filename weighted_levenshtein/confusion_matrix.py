@@ -2,6 +2,7 @@ import pandas as pd
 from file_comparison import get_string, get_relative_path, align
 import pickle
 
+
 def matrix_from_data(truth_list, read_list, chars):
     '''
     Parameters:
@@ -34,28 +35,28 @@ def matrix_from_data(truth_list, read_list, chars):
 
     return df
 
-def main():
-    truth = get_string(get_relative_path(
-        "../char_data_generation/random_chars.txt"))
-    read = get_string(get_relative_path(
-        "../char_data_generation/recognized_chars.txt"))
-    aligned_truth, aligned_read = align(truth, read)
+
+def main():  # Read in aligned data from file (generated using pypy3 for speed)
+    aligned_file = open('aligned_data.txt', 'r')
+    aligned_truth = aligned_file.readline().strip()  # strip to remove \n
+    aligned_read = aligned_file.readline()
+    aligned_file.close()
 
     chars = [chr(i) for i in range(32, 127)]  # 32 means include ' '
     df = matrix_from_data(aligned_truth, aligned_read, chars)
 
-    try: # try add to current pickle
-        original_df = pd.read_pickle(get_relative_path('confusion_matrix_test.pkl'))
+    try:  # try add to current pickle
+        original_df = pd.read_pickle(get_relative_path(
+            'confusion_matrix_test.pkl'))
         df = df + original_df
-    except:
-        pass # means pickle has not yet been created
+    except FileNotFoundError:
+        pass  # means pickle has not yet been created
 
     df.to_pickle("confusion_matrix_test.pkl")
     print(df.head())
 
     # df.loc['!'] --> returns the row of !
     # df['!'] --> returns the column of !
-
 
 
 if __name__ == "__main__":

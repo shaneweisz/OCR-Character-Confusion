@@ -46,14 +46,19 @@ def align(truth, read):
     return nw(truth, read)
 
 
-def main():
+def main():  # Run in pypy3 for speed and store in a text file for later use
     truth = get_string(get_relative_path(
         "../char_data_generation/random_chars.txt"))
     read = get_string(get_relative_path(
         "../char_data_generation/recognized_chars.txt"))
     aligned_truth, aligned_read = align(truth, read)
-    print(aligned_truth[:60])
+
+    print(aligned_truth[:60])  # For checking purposes
     print(aligned_read[:60])
+
+    aligned_file = open('aligned_data.txt', 'w')
+    aligned_file.write(aligned_truth + "\n" + aligned_read)
+    aligned_file.close()
 
 
 if __name__ == '__main__':
