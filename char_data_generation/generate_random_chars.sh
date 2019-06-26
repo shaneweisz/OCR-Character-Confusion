@@ -1,22 +1,25 @@
 #!/bin/bash
 # Generate test images for tesseract using text2image.
 
+# $1 <--- font name
+
 PANGOCAIRO_BACKEND=fc \
-text2image \
-   --text random_chars.txt\
-   --fonts_dir /Library/Fonts\
-   --font 'Verdana' \
-   --ptsize 12\
+text2image --text random_chars.txt\
    --outputbase 'test_data'\
-   --resolution 300\
-   --exposure 2\
-   --rotate_image true\
-   --degrade_image true\
-   --bidirectional_rotation true \
-/
+   --degrade_image false\
+   --rotate_image false\
+   --font $1 \
+   --fonts_dir /Library/Fonts\
+   --bidirectional_rotation false
+
 #--xsize  600\
 #--ysize  600\
-
+#--ptsize 12\
+#--exposure 0\
+#--resolution 300\
+#
+#--degrade_image true\
+#--bidirectional_rotation true \
 
 # Exposure: 0 - 10 scale (10 = black)
 
