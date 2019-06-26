@@ -72,8 +72,7 @@ def main():
     image_name = sys.argv[1]  # the image name
     image = Image.open(image_name).convert('RGBA')
     image = add_noise(image)
-    image.show()
-    return image
+    image.save(sys.argv[1], dpi = (300,300))
 
 
 if __name__ == "__main__":
