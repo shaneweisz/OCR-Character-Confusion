@@ -16,7 +16,7 @@ def write_to_file(text, file_name="random_chars.txt"):
 
 
 def main():
-    write_to_file(rand_chars(1000))
+    write_to_file(rand_chars(50000))
 
 
 if __name__ == "__main__":

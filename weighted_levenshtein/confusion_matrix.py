@@ -51,7 +51,7 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
         df = df + original_df
     except FileNotFoundError:
         pass  # means pickle has not yet been created
-
+    df.to_csv("confusion_matrix.csv")
     df.to_pickle("confusion_matrix_test.pkl")
     print(df.head())
 

@@ -9,7 +9,7 @@ text2image \
    --ptsize 12\
    --outputbase 'test_data'\
    --resolution 300\
-   --exposure 3\
+   --exposure 2\
    --rotate_image true\
    --degrade_image true\
    --bidirectional_rotation true \
