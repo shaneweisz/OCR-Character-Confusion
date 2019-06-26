@@ -36,6 +36,20 @@ def matrix_from_data(truth_list, read_list, chars):
     return df
 
 
+def visualise(df):
+    '''
+    Write a DataFrame to an excel file with conditional formatting
+    '''
+    writer = pd.ExcelWriter('confusion_matrix.xlsx', engine='xlsxwriter')
+    df.to_excel(writer)
+    workbook = writer.book
+    worksheet = writer.sheets['Sheet1']
+    worksheet.freeze_panes(1, 1)
+    worksheet.conditional_format(1, 1, len(df.index), len(df.columns),
+                                 {'type': '3_color_scale'})
+    writer.save()
+
+
 def main():  # Read in aligned data from file (generated using pypy3 for speed)
     aligned_file = open('aligned_data.txt', 'r')
     aligned_truth = aligned_file.readline().strip()  # strip to remove \n
@@ -51,7 +65,9 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
         df = df + original_df
     except FileNotFoundError:
         pass  # means pickle has not yet been created
-    df.to_csv("confusion_matrix.csv")
+
+    # visualise(df) # produce a formatted excel file for visualization
+
     df.to_pickle("confusion_matrix_test.pkl")
     print(df.head())
 
