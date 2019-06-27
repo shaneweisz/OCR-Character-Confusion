@@ -10,11 +10,9 @@ def matrix_from_data(truth_list, read_list, chars):
     truth_list --> a string consisting of the true characters
     read_list  --> a string of the corresponding recognized characters
     chars --> list of characters that are valid options for true characters
-
     Returns:
     A 2D Matrix A where A_ij represents the number of times that
     character i is recognized as character j.
-
     '''
     assert len(truth_list) == len(read_list)
     n = len(chars)  # n is the number of valid true characters
@@ -39,6 +37,14 @@ def matrix_from_data(truth_list, read_list, chars):
     return df
 
 
+def to_Hex(rgb_list):
+    """
+    Returns a hexadecimal string in the format '#RRGGBB'
+    from a list decimal RGB values"
+    """
+    return "".join(map(lambda x: hex(x)[2:].rjust(2, "0"), rgb_list))
+
+
 def visualise(df):
     '''
     Write a DataFrame to an excel file with conditional formatting
@@ -49,13 +55,15 @@ def visualise(df):
     worksheet = writer.sheets['Sheet1']
     worksheet.freeze_panes(1, 1)
     worksheet.conditional_format(1, 1, len(df.index), len(df.columns),
-                                 {'type': '3_color_scale'})
+                                 {'type': '2_color_scale',
+                                 'min_color': to_Hex([222, 238, 242]),
+                                 'max_color': to_Hex([234, 50, 35])})
     writer.save()
 
 
 def main():  # Read in aligned data from file (generated using pypy3 for speed)
-    aligned_file = open('aligned_data.txt', 'r')
-    aligned_truth = aligned_file.readline().strip()  # strip to remove \n
+    aligned_file = open(get_relative_path('../confusion_matrix')+'/aligned_data.txt', 'r')
+    aligned_truth = aligned_file.readline()[:-1]  # trim to remove \n
     aligned_read = aligned_file.readline()
     aligned_file.close()
 
@@ -63,15 +71,16 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
     df = matrix_from_data(aligned_truth, aligned_read, chars)
 
     try:  # try add to current pickle
-        original_df = pd.read_pickle(get_relative_path(
-            'confusion_matrix_test.pkl'))
+        original_df = pd.read_pickle(get_relative_path('../confusion_matrix')+
+            '/confusion_matrix.pkl')
         df = df + original_df
     except FileNotFoundError:
         pass  # means pickle has not yet been created
 
     visualise(df)  # produce a formatted excel file for visualization
 
-    df.to_pickle("confusion_matrix_test.pkl")
+    df.to_pickle(get_relative_path('../confusion_matrix')+
+        '/confusion_matrix.pkl')
     print(df.head())
 
     # df.loc['!'] --> returns the row of !
