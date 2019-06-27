@@ -42,7 +42,7 @@ def to_Hex(rgb_list):
     Returns a hexadecimal string in the format '#RRGGBB'
     from a list decimal RGB values"
     """
-    return "".join(map(lambda x: hex(x)[2:].rjust(2, "0"), rgb_list))
+    return "".join(map(lambda x: hex(x)[2:].rjust(2, "0"), rgb_list)).upper()
 
 
 def visualise(df):
@@ -56,8 +56,8 @@ def visualise(df):
     worksheet.freeze_panes(1, 1)
     worksheet.conditional_format(1, 1, len(df.index), len(df.columns),
                                  {'type': '2_color_scale',
-                                 'min_color': to_Hex([222, 238, 242]),
-                                 'max_color': to_Hex([234, 50, 35])})
+                                 'min_color': "#" + to_Hex([222, 238, 242]),
+                                 'max_color': "#" + to_Hex([234, 50, 35])})
     writer.save()
 
 
