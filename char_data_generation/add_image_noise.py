@@ -64,6 +64,7 @@ def add_noise(image):
     image = add_perspective_noise(image)
     return image
 
+
 def get_relative_path(relative_path):
     '''
     Parameters:
@@ -78,6 +79,7 @@ def get_relative_path(relative_path):
     filename = os.path.join(dirname, relative_path)
     return filename
 
+
 def main():
     """
     USAGE: Supply a single argument - the image to add noise to.
@@ -87,12 +89,12 @@ def main():
     image = Image.open(image_name).convert('RGB')
     image = add_noise(image)
 
-    image_name = os.path.basename(image_name) # extract the file name only
-    new_image_name = image_name[:-4] # strip of .tif
-    new_image_name += ".png" # png for smaller file size
+    image_name = os.path.basename(image_name)  # extract the file name only
+    new_image_name = image_name[:-4]  # strip of .tif
+    new_image_name += ".png"  # png for smaller file size
     path = get_relative_path("compressed_font_images/") + new_image_name
 
-    image.save(path, dpi = (70,70))
+    image.save(path, dpi=(70, 70))
 
 
 if __name__ == "__main__":
