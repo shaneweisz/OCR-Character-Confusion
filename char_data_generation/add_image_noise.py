@@ -2,6 +2,7 @@ from PIL import Image, ImageFilter
 import numpy as np
 from random import uniform
 import sys
+import os
 
 
 def add_rotation(image, max_degrees=2):
@@ -34,7 +35,7 @@ def add_s_and_p(image, mean_amount=0.004):
               for i in image.shape]
     out[tuple(coords)] = 0
 
-    out = Image.fromarray(out).convert('RGBA')
+    out = Image.fromarray(out).convert('RGB')
     return out
 
 
@@ -63,16 +64,35 @@ def add_noise(image):
     image = add_perspective_noise(image)
     return image
 
+def get_relative_path(relative_path):
+    '''
+    Parameters:
+        relative_path --> a string with the path to a file relative to the
+                          current directory
+                          Example: "../char_data_generation/random_chars.txt"
+
+    Returns:
+        A string with the absolute file path to a given file
+    '''
+    dirname = os.path.dirname(__file__)
+    filename = os.path.join(dirname, relative_path)
+    return filename
 
 def main():
     """
     USAGE: Supply a single argument - the image to add noise to.
     Example: > python3 add_image_noise.py test_data.tif
     """
-    image_name = sys.argv[1]  # the image name
-    image = Image.open(image_name).convert('RGBA')
+    image_name = sys.argv[1]  # the image path
+    image = Image.open(image_name).convert('RGB')
     image = add_noise(image)
-    image.save(sys.argv[1], dpi = (100,100))
+
+    image_name = os.path.basename(image_name) # extract the file name only
+    new_image_name = image_name[:-4] # strip of .tif
+    new_image_name += ".png" # png for smaller file size
+    path = get_relative_path("compressed_font_images/") + new_image_name
+
+    image.save(path, dpi = (70,70))
 
 
 if __name__ == "__main__":
