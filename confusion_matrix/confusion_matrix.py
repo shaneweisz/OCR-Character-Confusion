@@ -64,7 +64,7 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
 
     try:  # try add to current pickle
         original_df = pd.read_pickle(get_relative_path('../confusion_matrix')+
-            '/confusion_matrix_test.pkl')
+            '/confusion_matrix.pkl')
         df = df + original_df
     except FileNotFoundError:
         pass  # means pickle has not yet been created
@@ -72,7 +72,7 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
     visualise(df)  # produce a formatted excel file for visualization
 
     df.to_pickle(get_relative_path('../confusion_matrix')+
-        '/confusion_matrix_test.pkl')
+        '/confusion_matrix.pkl')
     print(df.head())
 
     # df.loc['!'] --> returns the row of !

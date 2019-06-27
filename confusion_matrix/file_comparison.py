@@ -53,8 +53,8 @@ def main():  # Run in pypy3 for speed and store in a text file for later use
         "../char_data_generation/recognized_chars.txt"))
     aligned_truth, aligned_read = align(truth, read)
 
-    print(aligned_truth[-80:])  # For checking purposes
-    print(aligned_read[-80:])
+    print(aligned_truth[-85:])  # For checking purposes
+    print(aligned_read[-85:])
     # check whether / added at end of get_relative_path
     aligned_file = open(get_relative_path('../confusion_matrix')+'/aligned_data.txt', 'w')
     aligned_file.write(aligned_truth + "\n" + aligned_read)
