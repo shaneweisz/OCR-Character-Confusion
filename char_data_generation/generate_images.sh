@@ -1,4 +1,4 @@
-
+# Converts a text file to images in various selected fonts to be used to run OCR on
 PANGOCAIRO_BACKEND=fc \
 text2image --text ./char_data_generation/random_chars.txt\
    --outputbase './char_data_generation/font_images/image'\

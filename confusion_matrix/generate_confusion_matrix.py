@@ -62,7 +62,8 @@ def visualise(df):
 
 
 def main():  # Read in aligned data from file (generated using pypy3 for speed)
-    aligned_file = open(get_absolute_path('../confusion_matrix')+'/aligned_data.txt', 'r')
+    aligned_file = open(get_absolute_path('../confusion_matrix')
+                        + '/aligned_data.txt', 'r')
     aligned_truth = aligned_file.readline()[:-1]  # trim to remove \n
     aligned_read = aligned_file.readline()
     aligned_file.close()

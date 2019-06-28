@@ -92,7 +92,7 @@ def main():
     image_name = os.path.basename(image_name)  # extract the file name only
     new_image_name = image_name[:-4]  # strip of .tif
     new_image_name += ".png"  # png for smaller file size
-    path = get_absolute_path("compressed_font_images/") + new_image_name
+    path = get_absolute_path("noisey_font_images/") + new_image_name
 
     image.save(path, dpi=(70, 70))
 

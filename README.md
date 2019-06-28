@@ -1,11 +1,21 @@
 # char-seq-confusion©
 Isazi Character Sequence Confusion © 2019
 
-# Procedure for generating and running ocr on random characters:
-# Note: Ensure you are in the char_data_generation folder
-> python3 random_chars.py
-> ./generate_random_chars.sh
-> ./run_ocr.sh ./test_data.tif recognized_chars
+T
+
+
+Explanation of folders:
+
+char_data_generation --> Creates text files with random characters that are converted to images
+                         in various fonts, which then have noise added to them.
+                         These images then have OCR performed on them.
+                         The output is a random_chars.txt (the true characters)
+                                     and recognized_chars.txt (the OCR'ed read characters)
+
+confusion_matrix --> Creates a confusion matrix based on the data generated above.
+                     Requires: random_chars.txt and recognized_chars.txt
+                     Outputs: A confusion matrix excel spreadsheet.
+
 
 Relevant Literature:
 

@@ -56,7 +56,7 @@ def main():  # Run in pypy3 for speed and store in a text file for later use
     print(aligned_truth[-85:])  # For checking purposes
     print(aligned_read[-85:])
     # check whether / added at end of get_relative_path
-    aligned_file = open(get_absolute_path('../confusion_matrix')+'/aligned_data_test.txt', 'w')
+    aligned_file = open(get_absolute_path('../confusion_matrix')+'/aligned_data.txt', 'w')
     aligned_file.write(aligned_truth + "\n" + aligned_read)
     aligned_file.close()
 
