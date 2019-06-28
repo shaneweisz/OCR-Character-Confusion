@@ -15,7 +15,7 @@ def get_string(file_name):
     return string
 
 
-def get_relative_path(relative_path):
+def get_absolute_path(relative_path):
     '''
     Parameters:
         relative_path --> a string with the path to a file relative to the
@@ -47,16 +47,16 @@ def align(truth, read):
 
 
 def main():  # Run in pypy3 for speed and store in a text file for later use
-    truth = get_string(get_relative_path(
+    truth = get_string(get_absolute_path(
         "../char_data_generation/random_chars.txt"))
-    read = get_string(get_relative_path(
+    read = get_string(get_absolute_path(
         "../char_data_generation/recognized_chars.txt"))
     aligned_truth, aligned_read = align(truth, read)
 
     print(aligned_truth[-85:])  # For checking purposes
     print(aligned_read[-85:])
     # check whether / added at end of get_relative_path
-    aligned_file = open(get_relative_path('../confusion_matrix')+'/aligned_data.txt', 'w')
+    aligned_file = open(get_absolute_path('../confusion_matrix')+'/aligned_data_test.txt', 'w')
     aligned_file.write(aligned_truth + "\n" + aligned_read)
     aligned_file.close()
 

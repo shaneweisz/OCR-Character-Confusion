@@ -65,7 +65,7 @@ def add_noise(image):
     return image
 
 
-def get_relative_path(relative_path):
+def get_absolute_path(relative_path):
     '''
     Parameters:
         relative_path --> a string with the path to a file relative to the
@@ -92,7 +92,7 @@ def main():
     image_name = os.path.basename(image_name)  # extract the file name only
     new_image_name = image_name[:-4]  # strip of .tif
     new_image_name += ".png"  # png for smaller file size
-    path = get_relative_path("compressed_font_images/") + new_image_name
+    path = get_absolute_path("compressed_font_images/") + new_image_name
 
     image.save(path, dpi=(70, 70))
 

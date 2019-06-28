@@ -1,5 +1,5 @@
 import pandas as pd
-from file_comparison import get_string, get_relative_path, align
+from file_comparison import get_string, get_absolute_path, align
 import pickle
 from collections import OrderedDict
 
@@ -56,13 +56,13 @@ def visualise(df):
     worksheet.freeze_panes(1, 1)
     worksheet.conditional_format(1, 1, len(df.index), len(df.columns),
                                  {'type': '2_color_scale',
-                                 'min_color': "#" + to_Hex([222, 238, 242]),
-                                 'max_color': "#" + to_Hex([234, 50, 35])})
+                                  'min_color': "#" + to_Hex([222, 238, 242]),
+                                  'max_color': "#" + to_Hex([234, 50, 35])})
     writer.save()
 
 
 def main():  # Read in aligned data from file (generated using pypy3 for speed)
-    aligned_file = open(get_relative_path('../confusion_matrix')+'/aligned_data.txt', 'r')
+    aligned_file = open(get_absolute_path('../confusion_matrix')+'/aligned_data.txt', 'r')
     aligned_truth = aligned_file.readline()[:-1]  # trim to remove \n
     aligned_read = aligned_file.readline()
     aligned_file.close()
@@ -71,16 +71,16 @@ def main():  # Read in aligned data from file (generated using pypy3 for speed)
     df = matrix_from_data(aligned_truth, aligned_read, chars)
 
     try:  # try add to current pickle
-        original_df = pd.read_pickle(get_relative_path('../confusion_matrix')+
-            '/confusion_matrix.pkl')
+        original_df = pd.read_pickle(get_absolute_path('../confusion_matrix') +
+                                     '/confusion_matrix.pkl')
         df = df + original_df
     except FileNotFoundError:
         pass  # means pickle has not yet been created
 
     visualise(df)  # produce a formatted excel file for visualization
 
-    df.to_pickle(get_relative_path('../confusion_matrix')+
-        '/confusion_matrix.pkl')
+    df.to_pickle(get_absolute_path('../confusion_matrix') +
+                 '/confusion_matrix.pkl')
     print(df.head())
 
     # df.loc['!'] --> returns the row of !

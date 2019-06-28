@@ -7,5 +7,8 @@ Isazi Character Sequence Confusion © 2019
 > ./generate_random_chars.sh
 > ./run_ocr.sh ./test_data.tif recognized_chars
 
-Relevant Literature
+Relevant Literature:
+
 https://jlcl.org/content/2-allissues/1-heft1-2018/jlcl_2018-1_3.pdf
+("supervised post-correction on character level will be more
+beneficial than on word level due to data sparsity issues.")
