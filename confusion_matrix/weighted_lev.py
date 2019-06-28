@@ -1,4 +1,4 @@
-from file_comparison import get_relative_path
+from file_comparison import get_absolute_path
 import numpy as np
 import pandas as pd
 import weighted_levenshtein as wl
@@ -19,7 +19,9 @@ def normalise(df):
 
 
 def get_subsitution_costs(df):
-    df = 1-df
+    # take reciprocals * 0.01 as the subtitution weights, with a maximum of 1
+    df[df >= 0.01] = 1/df * 0.01
+    df[df < 0.01] = 1
     sub_costs = np.ones((128, 128), dtype=np.float64)  # make a 2D array of 1's
     for row in df.index.values:
         for col in df.columns.values:
@@ -28,7 +30,7 @@ def get_subsitution_costs(df):
 
 
 def main():
-    df = pd.read_pickle(get_relative_path('../confusion_matrix') +
+    df = pd.read_pickle(get_absolute_path('../confusion_matrix') +
                         '/confusion_matrix.pkl')
     df = df.drop('other', axis=1)  # drop the ' ' column
     df = normalise(df)
