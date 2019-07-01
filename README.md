@@ -1,6 +1,23 @@
 # char-seq-confusion
 Isazi Character Sequence Confusion 2019
 
+--------------------------
+## Descripton and Explanation of Folders:
+
+<ul>
+
+<li> char_data_generation:  Creates text files with random characters that are converted to images
+                            in various fonts, which then have noise added to them.
+                            These images then have OCR performed on them.
+                            The output is a random_chars.txt (the true characters)
+                                     and recognized_chars.txt (the OCR'ed read characters). </li>
+
+<li> confusion_matrix:  Creates a confusion matrix based on the data generated above.
+                        Requires: random_chars.txt and recognized_chars.txt
+                        Outputs: A confusion matrix excel spreadsheet. </li>
+
+</ul>
+
 -------------------------
 ## How to use if testing a different implementation of an OCR engine:
 
@@ -31,24 +48,6 @@ Run `python3 weighted_lev.py <word1> <word2>` from the root directory.
 
 2) Generate new data and calculate the confusion matrix:
     > make
-
-
---------------------------
-## Explanation of folders:
-
-<ul>
-
-<li> char_data_generation:  Creates text files with random characters that are converted to images
-                            in various fonts, which then have noise added to them.
-                            These images then have OCR performed on them.
-                            The output is a random_chars.txt (the true characters)
-                                     and recognized_chars.txt (the OCR'ed read characters). </li>
-
-<li> confusion_matrix:  Creates a confusion matrix based on the data generated above.
-                        Requires: random_chars.txt and recognized_chars.txt
-                        Outputs: A confusion matrix excel spreadsheet. </li>
-
-</ul>
 
 ---------------------------
 ## Relevant Literature:
