@@ -1,3 +1,12 @@
+"""
+Add noise to an image.
+
+Take a given image, add noise to the image (blur, rotation,
+salt and pepper noise, and perspective change) and output the
+noisey image.
+"""
+
+
 from PIL import Image, ImageFilter
 import numpy as np
 from random import uniform
@@ -6,17 +15,13 @@ import os
 
 
 def add_rotation(image, max_degrees=2):
-    """
-    Rotates an image up to a maximum of 2 degrees in either direction.
-    """
+    """Rotate an image up to a maximum of 2 degrees in either direction."""
     rand_degr = uniform(-max_degrees, max_degrees)
     return image.rotate(rand_degr)
 
 
 def add_s_and_p(image, mean_amount=0.004):
-    """
-    Adds salt and pepper noise to on average 0.4% of the pixels
-    """
+    """Add salt and pepper noise to on average 0.4% of the pixels."""
     image = image.convert('LA')  # convert to greyscale
     image = np.array(image)
     row, col, ch = image.shape
@@ -41,7 +46,10 @@ def add_s_and_p(image, mean_amount=0.004):
 
 def add_perspective_noise(image, max_slope=0.05):
     """
-    Returns an image with a perspective rotation at a slope of -0.05 and 0.05
+    Return an image with a perspective rotation.
+
+    The default range of slopes that can be chosen for the rotation is
+    between -0.05 and 0.05.
     """
     width, height = image.size
     m = uniform(-max_slope, max_slope)
@@ -55,8 +63,10 @@ def add_perspective_noise(image, max_slope=0.05):
 
 def add_noise(image):
     """
-    Returns an image with added noise including blur, rotation, and
-    salt and pepper noise.
+    Return an image with added noise.
+
+    The added noise includes blur, rotation, salt and pepper noise,
+    and perspective change.
     """
     image = image.filter(ImageFilter.BLUR)  # add blur
     image = add_rotation(image)
@@ -66,15 +76,18 @@ def add_noise(image):
 
 
 def get_absolute_path(relative_path):
-    '''
+    """
+    Get the absolute file path to a desired file.
+
     Parameters:
         relative_path --> a string with the path to a file relative to the
                           current directory
                           Example: "../char_data_generation/random_chars.txt"
 
     Returns:
-        A string with the absolute file path to a given file
-    '''
+        A string with the absolute file path to a given file.
+
+    """
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, relative_path)
     return filename
@@ -82,6 +95,8 @@ def get_absolute_path(relative_path):
 
 def main():
     """
+    Run to add noise to a specified image.
+
     USAGE: Supply a single argument - the image to add noise to.
     Example: > python3 add_image_noise.py test_data.tif
     """
