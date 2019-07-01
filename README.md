@@ -1,5 +1,5 @@
-# char-seq-confusion©
-Isazi Character Sequence Confusion © 2019
+# char-seq-confusion
+Isazi Character Sequence Confusion 2019
 
 -------------------------
 ## How to use if testing a different implementation of an OCR engine:
@@ -14,7 +14,7 @@ directory as the Makefile) or specify the path to them in (3) below.
 3) Run from the same directory as the Makefile:
     > make conf_matrix t=truth.txt r=read.txt
 
-4) The confusion matrix should be saved and open automatically.
+4) The calculated confusion matrix should be saved and open automatically.
 
 --------------------------
 ## Explanation of folders:
