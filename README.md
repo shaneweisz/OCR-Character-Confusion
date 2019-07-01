@@ -2,7 +2,7 @@
 Isazi Character Sequence Confusion © 2019
 
 -------------------------
-How to use if testing a different implementation of an OCR engine:
+## How to use if testing a different implementation of an OCR engine:
 
 1) You must supply a text file (e.g. truth.txt) with the true text,
 and a text file with the text recognized by the OCR engine
@@ -17,7 +17,7 @@ directory as the Makefile) or specify the path to them in (3) below.
 4) The confusion matrix should be saved and open automatically.
 
 --------------------------
-Explanation of folders:
+## Explanation of folders:
 
 char_data_generation --> Creates text files with random characters that are converted to images
                          in various fonts, which then have noise added to them.
@@ -30,7 +30,7 @@ confusion_matrix --> Creates a confusion matrix based on the data generated abov
                      Outputs: A confusion matrix excel spreadsheet.
 ---------------------------
 
-Relevant Literature:
+## Relevant Literature:
 
 https://jlcl.org/content/2-allissues/1-heft1-2018/jlcl_2018-1_3.pdf
 ("supervised post-correction on character level will be more
