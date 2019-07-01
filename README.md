@@ -19,15 +19,19 @@ directory as the Makefile) or specify the path to them in (3) below.
 --------------------------
 ## Explanation of folders:
 
-char_data_generation --> Creates text files with random characters that are converted to images
-                         in various fonts, which then have noise added to them.
-                         These images then have OCR performed on them.
-                         The output is a random_chars.txt (the true characters)
-                                     and recognized_chars.txt (the OCR'ed read characters)
+<ul>
 
-confusion_matrix --> Creates a confusion matrix based on the data generated above.
-                     Requires: random_chars.txt and recognized_chars.txt
-                     Outputs: A confusion matrix excel spreadsheet.
+<li> char_data_generation:  Creates text files with random characters that are converted to images
+                            in various fonts, which then have noise added to them.
+                            These images then have OCR performed on them.
+                            The output is a random_chars.txt (the true characters)
+                                     and recognized_chars.txt (the OCR'ed read characters). </li>
+
+<li> confusion_matrix:  Creates a confusion matrix based on the data generated above.
+                        Requires: random_chars.txt and recognized_chars.txt
+                        Outputs: A confusion matrix excel spreadsheet. </li>
+
+</ul>
 ---------------------------
 
 ## Relevant Literature:
