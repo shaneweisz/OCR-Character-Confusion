@@ -32,8 +32,8 @@ directory as the Makefile) or specify the path to them in (3) below.
                         Outputs: A confusion matrix excel spreadsheet. </li>
 
 </ul>
----------------------------
 
+---------------------------
 ## Relevant Literature:
 
 https://jlcl.org/content/2-allissues/1-heft1-2018/jlcl_2018-1_3.pdf
