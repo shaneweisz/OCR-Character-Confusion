@@ -24,7 +24,7 @@ Run `python3 weighted_lev.py <word1> <word2>` from the root directory.
 
 --------------------------
 ## How to generate new sample data and confusion matrix:
-<em>(Note: this will overwrite the current confusion matrix)<em>
+<em>(Note: this will overwrite the current confusion matrix)</em>
 
 1) Remove the current pickle:
     > make clean

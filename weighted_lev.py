@@ -1,3 +1,10 @@
+"""
+Implements a Weighted Levenshtein on two words.
+
+Uses weights resulting from the confusion matrix that has generated
+(confusion_matrix_base.pkl or confusion_matrix_base.xlsx).
+"""
+
 import numpy as np
 import pandas as pd
 import weighted_levenshtein as wl
@@ -6,8 +13,7 @@ import os
 
 
 def normalise(df):
-    """
-    Returns a normalised Confusion Matrix.
+    """Return the normalised Confusion Matrix.
 
     Each count in a row is converted to the proportion of times that
     character i is read as character j.
@@ -19,7 +25,12 @@ def normalise(df):
 
 
 def get_subsitution_costs(df):
-    # take reciprocals * 0.01 as the subtitution weights, with a maximum of 1
+    """
+    Get the subtitution costs to be used for the Weighted Levenshtein.
+
+    Takes the normalized confusion matrix and uses the
+    reciprocals * 0.01 as the substitution weights, with a maximum of 1.
+    """
     df[df >= 0.01] = 1/df * 0.01
     df[df < 0.01] = 1
     sub_costs = np.ones((128, 128), dtype=np.float64)  # make a 2D array of 1's
@@ -30,21 +41,25 @@ def get_subsitution_costs(df):
 
 
 def get_absolute_path(relative_path):
-    '''
+    """
+    Get the absolute file path to a desired file.
+
     Parameters:
-        relative_path --> a string with the path to a file relative to the
+        relative_path - -> a string with the path to a file relative to the
                           current directory
                           Example: "../char_data_generation/random_chars.txt"
 
     Returns:
-        A string with the absolute file path to a given file
-    '''
+        A string with the absolute file path to a given file.
+
+    """
     dirname = os.path.dirname(__file__)
     filename = os.path.join(dirname, relative_path)
     return filename
 
 
 def main():
+    """Run Weighted Levenshtein on two inputted words."""
     df = pd.read_pickle(get_absolute_path('confusion_matrix') +
                         '/confusion_matrix_base.pkl')  # use the base pickle
     df = df.drop('other', axis=1)  # drop the ' ' column

@@ -1,3 +1,15 @@
+"""
+Generate a confusion matrix.
+
+The confusion matrix has a row and column for each character.
+Each cell in the matrix records the number of times letter x (the row)
+is recognized by Tesseract (or another OCR engine) as letter y (the column).
+
+The matrix is generated using the data from the aligned text file produced
+by file_comparison.py which aligned the true and read text.
+"""
+
+
 import pandas as pd
 from file_comparison import get_string, get_absolute_path, align
 import pickle
@@ -5,15 +17,18 @@ from collections import OrderedDict
 
 
 def matrix_from_data(truth_list, read_list, chars):
-    '''
+    """
+    Generate a confusion matrix from the aligned truth and read lists.
+
     Parameters:
-    truth_list --> a string consisting of the true characters
-    read_list  --> a string of the corresponding recognized characters
-    chars --> list of characters that are valid options for true characters
+        truth_list --> a string consisting of the true characters
+        read_list  --> a string of the corresponding recognized characters
+        chars --> list of characters that are valid options for true characters
+
     Returns:
-    A 2D Matrix A where A_ij represents the number of times that
-    character i is recognized as character j.
-    '''
+        A 2D Matrix A where A_ij represents the number of times that
+        character i is recognized as character j.
+    """
     assert len(truth_list) == len(read_list)
     n = len(chars)  # n is the number of valid true characters
 
@@ -39,16 +54,15 @@ def matrix_from_data(truth_list, read_list, chars):
 
 def to_Hex(rgb_list):
     """
-    Returns a hexadecimal string in the format '#RRGGBB'
-    from a list decimal RGB values"
+    Return a hexadecimal string from a list of decimal RGB values.
+
+    The returned hexadecimal string is in the format '#RRGGBB'.
     """
     return "".join(map(lambda x: hex(x)[2:].rjust(2, "0"), rgb_list)).upper()
 
 
 def visualise(df):
-    '''
-    Write a DataFrame to an excel file with conditional formatting
-    '''
+    """Write a DataFrame to an excel file with conditional formatting."""
     writer = pd.ExcelWriter('confusion_matrix.xlsx', engine='xlsxwriter')
     df.to_excel(writer)
     workbook = writer.book
@@ -62,6 +76,7 @@ def visualise(df):
 
 
 def main():  # Read in aligned data from file (generated using pypy3 for speed)
+    """Generate the confusion matrix."""
     aligned_file = open(get_absolute_path('../confusion_matrix')
                         + '/aligned_data.txt', 'r')
     aligned_truth = aligned_file.readline()[:-1]  # trim to remove \n
