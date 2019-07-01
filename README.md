@@ -17,6 +17,23 @@ directory as the Makefile) or specify the path to them in (3) below.
 4) The calculated confusion matrix should be saved and open automatically.
 
 --------------------------
+## How to use the Weighted Levenshtein (using weights from our confusion matrix):
+
+Run `python3 weighted_lev.py <word1> <word2>` from the root directory.
+
+
+--------------------------
+## How to generate new sample data and confusion matrix:
+<em>(Note: this will overwrite the current confusion matrix)<em>
+
+1) Remove the current pickle:
+    > make clean
+
+2) Generate new data and calculate the confusion matrix:
+    > make
+
+
+--------------------------
 ## Explanation of folders:
 
 <ul>
